@@ -32,8 +32,8 @@ trap cleanup_and_exit SIGINT
 # Infinite loop to run the miner in cycles
 while true; do
     start_miner
-    echo "Miner running for 3 hours..."
-    sleep 5h  # Run miner for 3 hours
+    echo "Miner running for 5 hours..."
+    sleep 5h  # Run miner for 5 hours
 
     stop_miner
     echo "Miner resting for 10 minutes..."
