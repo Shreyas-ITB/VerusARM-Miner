@@ -3,9 +3,9 @@
 # Function to start the miner
 start_miner() {
     echo "Cleaning up existing screen sessions..."
-    # Kill all existing screen sessions
-    screen -ls | grep Detached | awk '{print $1}' | xargs -I {} screen -X -S {} quit
-    screen -ls | grep Dead | awk '{print $1}' | xargs -I {} screen -wipe {}
+    # Kill all existing CCminer screen sessions
+    screen -ls | grep 'CCminer' | grep Detached | awk '{print $1}' | xargs -I {} screen -X -S {} quit
+    screen -ls | grep 'CCminer' | grep Dead | awk '{print $1}' | xargs -I {} screen -wipe
 
     echo "Starting the miner..."
     ./ccminer/start.sh
@@ -21,8 +21,8 @@ stop_miner() {
 cleanup_and_exit() {
     echo "Quitting the script and the miner.. sad to see you go!"
     stop_miner
-    screen -ls | grep Detached | awk '{print $1}' | xargs -I {} screen -X -S {} quit
-    screen -ls | grep Dead | awk '{print $1}' | xargs -I {} screen -wipe {}
+    screen -ls | grep 'CCminer' | grep Detached | awk '{print $1}' | xargs -I {} screen -X -S {} quit
+    screen -ls | grep 'CCminer' | grep Dead | awk '{print $1}' | xargs -I {} screen -wipe
     exit 0
 }
 
