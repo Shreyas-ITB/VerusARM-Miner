@@ -33,7 +33,7 @@ trap cleanup_and_exit SIGINT
 while true; do
     start_miner
     echo "Miner running for 3 hours..."
-    sleep 3h  # Run miner for 3 hours
+    sleep 5h  # Run miner for 3 hours
 
     stop_miner
     echo "Miner resting for 10 minutes..."
