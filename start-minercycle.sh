@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Load environment variables from .env file
+if [ -f .env ]; then
+    export $(cat .env | xargs)
+fi
+
 # Function to start the miner
 start_miner() {
     echo "Cleaning up existing screen sessions..."
@@ -28,6 +33,42 @@ cleanup_and_exit() {
 
 # Trap SIGINT (CTRL+C) to run the cleanup_and_exit function
 trap cleanup_and_exit SIGINT
+
+# Function to collect system information and save as JSON
+collect_system_info() {
+    while true; do
+        # Get the system name
+        local system_name=$(whoami)
+        
+        # Get the current temperature of the CPU
+        local cpu_temp=$(vcgencmd measure_temp | egrep -o '[0-9]*\.[0-9]*')
+        
+        # Get the internet consumption (you can adjust the network interface as needed)
+        local interface="wlan0" # Change this if using a different network interface
+        local rx_bytes=$(cat /sys/class/net/$interface/statistics/rx_bytes)
+        local tx_bytes=$(cat /sys/class/net/$interface/statistics/tx_bytes)
+        local netcons=$(($rx_bytes + $tx_bytes))
+
+        # Create a JSON object
+        local json_data=$(jq -n --arg name "$system_name" --arg temp "$cpu_temp" --arg netcons "$netcons" \
+            '{name: $name, temp: $temp, netcons: $netcons}')
+
+        # Save JSON data to a file
+        echo $json_data > system_info.json
+
+        # Post the JSON data to the socket server
+        if [ ! -z "$API" ]; then
+            curl -X POST -H "Content-Type: application/json" -d "$json_data" "http://$API"
+        else
+            echo "API endpoint is not defined in the .env file."
+        fi
+
+        sleep 5m  # Run this every 5 minutes
+    done
+}
+
+# Start collecting system info in the background
+collect_system_info &
 
 # Infinite loop to run the miner in cycles
 while true; do
