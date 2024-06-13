@@ -4,25 +4,10 @@
                 "name": "Verus Luckpool (Asia)",
         "url": "stratum+tcp://ap.luckpool.net:3956",
                 "timeout": 60,
-                "time-limit": 600,
-                "disabled": 0
-        },
-        {
-                "name": "Verus Luckpool (North America)",
-        "url": "stratum+tcp://na.luckpool.net:3956",
-                "timeout": 60,
-                "time-limit": 600,
-                "disabled": 0
-        },
-        {
-                "name": "Verus Luckpool (Europe)",
-        "url": "stratum+tcp://eu.luckpool.net:3956",
-                "timeout": 60,
-                "time-limit": 600,
                 "disabled": 0
         }],
 
-        "user": "RMfrbs9eApM4VXV6htayiw1ks5WUGDvGtB.ShreyasPi2",
+        "user": "RMfrbs9eApM4VXV6htayiw1ks5WUGDvGtB.Cluster",
 	"algo": "verus",
 	"threads": 4,
 	"cpu-priority": 1,
