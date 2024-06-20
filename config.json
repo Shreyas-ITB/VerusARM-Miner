@@ -1,8 +1,8 @@
 {
         "pools":[
         {
-                "name": "Verus Luckpool (Asia)",
-        "url": "stratum+tcp://ap.luckpool.net:3956",
+                "name": "Verus Luckpool (North America)",
+        "url": "stratum+tcp://na.luckpool.net:3956",
                 "timeout": 60,
                 "disabled": 0
         }],
